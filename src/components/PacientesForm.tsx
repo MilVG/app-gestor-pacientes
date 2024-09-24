@@ -1,5 +1,13 @@
+import { useForm } from "react-hook-form"
+
 export default function PacientesForm() {
 
+  const { register, handleSubmit } = useForm()
+
+  const registrarPaciente = () => {
+    console.log('Nuevo paciente');
+
+  }
   return (
     <div className="md:w-1/2 lg:w-2/5 mx-5">
       <h2 className="font-black text-3xl text-center">Seguimiento Pacientes</h2>
@@ -12,6 +20,7 @@ export default function PacientesForm() {
       <form
         className="bg-white shadow-md rounded-lg py-10 px-5 mb-10"
         noValidate
+        onSubmit={handleSubmit(registrarPaciente)}
       >
         <div className="mb-5">
           <label htmlFor="name" className="text-sm uppercase font-bold">
@@ -22,6 +31,9 @@ export default function PacientesForm() {
             className="w-full p-3  border border-gray-100"
             type="text"
             placeholder="Nombre del Paciente"
+            {...register('name', {
+              required: 'El nombre del paciente es Obligatorio'
+            })}
           />
         </div>
 
