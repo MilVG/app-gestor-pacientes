@@ -1,3 +1,4 @@
+import { usePacientes } from "../store"
 import { Paciente } from "../types"
 import PacienteDetalleElemento from "./PacienteDetalleElemento"
 
@@ -5,6 +6,8 @@ type PacientesProps = {
   paciente: Paciente
 }
 export default function PacienteDetalle({ paciente }: PacientesProps) {
+
+  const eliminarPaciente = usePacientes((state) => state.eliminarPaciente)
   return (
     <div className=" mx-5 my-10 px-5 py-10 bg-white shadow-md rounded-xl ">
       <PacienteDetalleElemento label="ID" data={paciente.id} />
@@ -24,6 +27,7 @@ export default function PacienteDetalle({ paciente }: PacientesProps) {
           type="button"
           className="py-2 px-10 bg-red-600 hover:bg-red-700 text-white font-bold uppercase
           rounded-lg"
+          onClick={() => eliminarPaciente(paciente.id)}
         >Eliminar</button>
       </div>
     </div>
