@@ -3,9 +3,11 @@ import { v4 as uuidv4 } from 'uuid'
 import { Paciente, PacienteTemporal } from './types'
 
 type PacientesState = {
-  pacientes: Paciente[]
+  pacientes: Paciente[],
+  activeId: string
   addPacientes: (data: PacienteTemporal) => void
   eliminarPaciente: (id: Paciente['id']) => void
+  obtenerIdPaciente: (id: Paciente['id']) => void
 }
 
 const createPaciente = (paciente: PacienteTemporal): Paciente => {
@@ -14,6 +16,7 @@ const createPaciente = (paciente: PacienteTemporal): Paciente => {
 
 export const usePacientes = create<PacientesState>((set) => ({
   pacientes: [],
+  activeId: '',
   addPacientes: (data) => {
 
     const newPaciente = createPaciente(data)
@@ -25,6 +28,15 @@ export const usePacientes = create<PacientesState>((set) => ({
   eliminarPaciente: (id) => {
     set((state) => ({
       pacientes: state.pacientes.filter(paciente => paciente.id !== id)
+    }))
+
+  },
+
+  obtenerIdPaciente: (id) => {
+    console.log(id);
+
+    set(() => ({
+      activeId: id
     }))
 
   }
