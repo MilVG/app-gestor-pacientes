@@ -10,6 +10,7 @@ type PacientesState = {
   addPacientes: (data: PacienteTemporal) => void
   eliminarPaciente: (id: Paciente['id']) => void
   obtenerIdPaciente: (id: Paciente['id']) => void
+  actulizarPaciente: (data: PacienteTemporal) => void
 }
 
 const createPaciente = (paciente: PacienteTemporal): Paciente => {
@@ -36,6 +37,17 @@ export const usePacientes = create<PacientesState>()(
         set(() => ({
           activeId: id,
         }));
+      },
+      actulizarPaciente(data) {
+        set((state) => ({
+          pacientes: state.pacientes.map(
+            paciente => paciente.id === state.activeId ?
+              { id: state.activeId, ...data }
+              : paciente
+          ),
+          activeId: ''
+        }))
+
       },
     }),
   ),

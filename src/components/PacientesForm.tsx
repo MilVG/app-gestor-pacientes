@@ -9,12 +9,19 @@ export default function PacientesForm() {
   const addPacientes = usePacientes(state => state.addPacientes)
   const activeId = usePacientes(state => state.activeId)
   const pacientes = usePacientes(state => state.pacientes)
+  const actulizarPaciente = usePacientes(state => state.actulizarPaciente)
+
 
   const { register, handleSubmit, setValue, formState: { errors }, reset } = useForm<PacienteTemporal>()
 
 
   const registrarPaciente = (data: PacienteTemporal) => {
-    addPacientes(data)
+    if (activeId) {
+      actulizarPaciente(data)
+    } else {
+
+      addPacientes(data)
+    }
     reset()
   }
 
